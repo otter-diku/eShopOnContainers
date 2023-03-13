@@ -47,7 +47,12 @@ public class EventBusKafka : IEventBus, IDisposable
 
         _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, typeof(TH).GetGenericTypeName());
 
-        _subsManager.AddSubscription<T, TH>();
+        try {
+            _subsManager.AddSubscription<T, TH>();
+        } catch (Exception e)
+        {
+            Console.WriteLine($"Failed to add subscription {eventName}, because: {e.Message}");
+        }
     }
 
     public void SubscribeDynamic<TH>(string eventName) where TH : IDynamicIntegrationEventHandler

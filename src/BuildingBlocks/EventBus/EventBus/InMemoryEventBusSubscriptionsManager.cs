@@ -30,11 +30,16 @@ public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptio
     {
         var eventName = GetEventKey<T>();
 
+        Console.WriteLine($"Adding Handler: {typeof(TH)} for Event: {eventName}");
         DoAddSubscription(typeof(TH), eventName, isDynamic: false);
 
         if (!_eventTypes.Contains(typeof(T)))
         {
             _eventTypes.Add(typeof(T));
+        }
+
+        foreach (var h in _handlers) {
+            Console.WriteLine($"Handler has Subscription for: {h.Key}");
         }
     }
 
