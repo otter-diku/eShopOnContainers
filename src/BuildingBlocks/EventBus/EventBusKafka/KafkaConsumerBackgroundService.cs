@@ -52,6 +52,8 @@ public class KafkaConsumerBackgroundService : BackgroundService
 
                 if (!_subsManager.HasSubscriptionsForEvent(eventName))
                 {
+                    _subsManager.PrintHandlers();
+                    
                     _logger.LogWarning("No subscription for Kafka event: {EventName}", eventName);
                     continue;
                 }
