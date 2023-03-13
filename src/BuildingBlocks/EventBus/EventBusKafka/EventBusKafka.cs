@@ -26,7 +26,7 @@ public class EventBusKafka : IEventBus, IDisposable
     
     public void Publish(IntegrationEvent @event)
     {
-        var eventName = @event.GetType().Name.Replace(IntegrationEventSuffix, "");
+        var eventName = @event.GetType().Name;
         var jsonMessage = JsonSerializer.Serialize(@event, @event.GetType());
         
         // map Integration event to kafka message
