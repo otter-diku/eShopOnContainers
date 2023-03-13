@@ -18,6 +18,16 @@ public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptio
     public bool IsEmpty => _handlers is { Count: 0 };
     public void Clear() => _handlers.Clear();
 
+    public void PrintHandlers()
+    {
+        Console.WriteLine("Printing handlers: ");
+        foreach (var h in _handlers)
+        {
+            Console.WriteLine(h.Key);
+        }
+        Console.WriteLine("Finished printing handlers");
+    }
+
     public void AddDynamicSubscription<TH>(string eventName)
         where TH : IDynamicIntegrationEventHandler
     {
