@@ -5,9 +5,6 @@ public interface IEventBusSubscriptionsManager
     bool IsEmpty { get; }
     event EventHandler<string> OnEventRemoved;
     
-    // TODO: remove me later
-    void PrintHandlers();
-    
     void AddDynamicSubscription<TH>(string eventName)
         where TH : IDynamicIntegrationEventHandler;
 

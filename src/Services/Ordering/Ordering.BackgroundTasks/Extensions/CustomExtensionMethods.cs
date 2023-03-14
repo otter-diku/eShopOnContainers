@@ -76,6 +76,7 @@ namespace Ordering.BackgroundTasks.Extensions
             }
             else if (configuration.GetValue<bool>("KafkaEnabled"))
             {
+                services.AddSingleton<IKafkaPersistentConnection, DefaultKafkaPersistentConnection>();
                 services.AddHostedService<KafkaConsumerBackgroundService>();
                 services.AddSingleton<IEventBus, EventBusKafka>();
             }

@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -47,13 +46,8 @@ public class KafkaConsumerBackgroundService : BackgroundService
                 var eventName = consumeResult.Message.Key;
                 var messageContent = consumeResult.Message.Value;
 
-                Console.WriteLine($"SubsManager has any subscription: {!_subsManager.IsEmpty}");
-                Console.WriteLine($"Consumed event: {eventName}\n Content: {Utils.CalculateMd5Hash(messageContent)}");
-
                 if (!_subsManager.HasSubscriptionsForEvent(eventName))
                 {
-                    _subsManager.PrintHandlers();
-                    
                     _logger.LogWarning("No subscription for Kafka event: {EventName}", eventName);
                     continue;
                 }
