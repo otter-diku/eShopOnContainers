@@ -224,7 +224,11 @@ public class CatalogController : ControllerBase
         catalogItem = productToUpdate;
         _catalogContext.CatalogItems.Update(catalogItem);
 
-        if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
+        if (!raiseProductPriceChangedEvent && !raiseProductStockChangedEvent)// Just save the updated product because the Product's Price hasn't changed.
+        {
+            await _catalogContext.SaveChangesAsync();
+        }
+        else if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
         {
             //Create Integration Event to be published through the Event Bus
             var priceChangedEvent = new ProductPriceChangedIntegrationEvent(catalogItem.Id, productToUpdate.Price, oldPrice);
@@ -247,10 +251,7 @@ public class CatalogController : ControllerBase
             await _catalogIntegrationEventService.PublishThroughEventBusAsync(stockChangedEvent);
 
         }
-        else // Just save the updated product because the Product's Price hasn't changed.
-        {
-            await _catalogContext.SaveChangesAsync();
-        }
+      
 
         return CreatedAtAction(nameof(ItemByIdAsync), new { id = productToUpdate.Id }, null);
     }
