@@ -285,7 +285,7 @@ public class CatalogController : ControllerBase
             CatalogType = item.CatalogType,
             CatalogTypeId = item.CatalogTypeId,
             Description = item.Description,
-            Id = item.Id,
+            ProductId = item.Id,
             MaxStockThreshold = item.MaxStockThreshold,
             Name = item.Name,
             OnReorder = item.OnReorder
