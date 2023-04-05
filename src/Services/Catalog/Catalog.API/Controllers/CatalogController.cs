@@ -264,11 +264,13 @@ public class CatalogController : ControllerBase
     {
         var item = new CatalogItem
         {
+            Id = product.Id,
             CatalogBrandId = product.CatalogBrandId,
             CatalogTypeId = product.CatalogTypeId,
             Description = product.Description,
             Name = product.Name,
             PictureFileName = product.PictureFileName,
+            AvailableStock = product.AvailableStock,
             Price = product.Price
         };
 
